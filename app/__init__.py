@@ -31,10 +31,6 @@ def create_app(config_name):
     app.register_blueprint(admin_blueprint, url_prefix='/admin')
     app.register_blueprint(auth_blueprint)
     app.register_blueprint(home_blueprint)
-
-    @app.route('/')
-    def hello_world():
-        return 'Hello, this is Royhan Anwar!'
-
+    
     return app
 
