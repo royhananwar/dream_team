@@ -6,12 +6,15 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>{{ title }} | Dream Team</title>
     <link rel="stylesheet" href="{{ url_for('static', filename='materialize/css/materialize.min.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
 </head>
 <body>
     {% include '_includes/_navbar.html' %}
-    
-    {% block content %}
-    
-    {% endblock %}
+    <div class="container">
+        {% include '_includes/_flash.html' %}
+        {% block content %}
+
+        {% endblock %}
+    </div>
 </body>
 </html>
