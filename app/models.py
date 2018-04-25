@@ -29,13 +29,13 @@ class Employee(UserMixin, db.Model):
         raise AttributeError('Password is not Readable!')
 
     @password.setter
-    def password(self):
+    def password(self, password):
         '''
         set password to a hashed password
         '''
         self.password_hash = generate_password_hash(password)
     
-    def verify_password(self):
+    def verify_password(self, password):
         '''
         Check password if match with hash password
         '''
