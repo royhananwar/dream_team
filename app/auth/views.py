@@ -51,8 +51,12 @@ def login():
             if employee_hash:
                 # login user
                 login_user(employee)
-                
-                return redirect(url_for('home.dashboard'))
+
+                # redirect to the appropriate dashboard page
+                if employee.is_admin:
+                    return redirect(url_for('home.admin_dashboard'))
+                else:             
+                    return redirect(url_for('home.dashboard'))
             else:
                 # password wrong
                 flash('Invalid Password!')
