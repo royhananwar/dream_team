@@ -34,3 +34,44 @@ def register():
     # render template and load registration form
     return render_template('auth/register.html', form=form, title='Register')
 
+
+@auth.route('/login', methods=['POST', 'GET'])
+def login():
+    '''
+    Handle for login employee
+    '''
+
+    form = LoginForm()
+    if request.method == 'POST' and form.validate_on_submit():
+        # Check if employee is exists
+        employee = Employee.query.filter_by(username=form.username.data).first()
+        employee_hash = employee.verify_password(form.password.data)
+
+        if employee is not None:
+            if employee_hash:
+                # login user
+                login_user(employee)
+                
+                return redirect(url_for('home.dashboard'))
+            else:
+                # password wrong
+                flash('Invalid Password!')
+        else:
+            # if user is not exists
+            flash('Username is not exists!')
+    
+    # Load login template
+    return render_template('auth/login.html', form=form, title='Login')
+
+
+@auth.route('/logout')
+@login_required
+def logout():
+    '''
+    Handle for Logout and delete session
+    '''
+
+    logout_user()
+    flash('You have successfuly been logged out.')
+
+    return redirect(url_for('auth.login'))

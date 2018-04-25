@@ -1,0 +1,31 @@
+{% extends 'base.html' %}
+
+{% block title %} Login {% endblock %}
+
+{% block content %}
+    <div class="row">
+        <form action="/login" method="post" class="col s6 offset-s3">
+            {{ form.hidden_tag() }}
+            
+            {{ form.username.label }}
+            {{ form.username }}
+    
+            {% for message in form.username.errors %}
+                <span>{{ message }}</span>
+            {% endfor %}
+            <br>
+    
+            {{ form.password.label }}
+            {{ form.password }}
+    
+            {% for message in form.password.errors %}
+                <span>{{ message }}</span>
+            {% endfor %}
+            <br>
+    
+            <a class="waves-effect waves-light btn">{{ form.submit }}</a>
+    
+        </form>
+    </div>
+
+{% endblock %}
