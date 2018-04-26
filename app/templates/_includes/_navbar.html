@@ -2,9 +2,24 @@
     <div class="nav-wrapper">
         <a href="#" class="brand-logo">Logo</a>
         <ul id="nav-mobile" class="right hide-on-med-and-down">
-            <li><a href="{{ url_for('home.index') }}">Home</a></li>
-            <li><a href="/admin">Admin</a></li>
-            <li><a href="/auth">Auth</a></li>
+            {% if current_user.is_authenticated %}
+                {% if current_user.is_admin %}
+                    <li><a href="{{ url_for('home.admin_dashboard') }}">Admin Dashboard</a></li>
+                    <li><a href="#">Departments</a></li>
+                    <li><a href="#">Roles</a></li>
+                    <li><a href="#">Employees</a></li>
+                {% else %}
+                    <li><a href="{{ url_for('home.dashboard') }}">Dashboard</a></li>
+                {% endif %}
+
+                <li><a href="{{ url_for('auth.logout') }}">Logout</a></li>
+                <li><a>Hi, {{ current_user.username }}!</a></li>
+                
+            {% else %}
+                <li><a href="{{ url_for('home.index') }}">Home</a></li>
+                <li><a href="{{ url_for('auth.register') }}">Register</a></li>
+                <li><a href="{{ url_for('auth.login') }}">Login</a></li>
+            {% endif %}
         </ul>
     </div>
 </nav>
