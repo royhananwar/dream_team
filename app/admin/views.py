@@ -37,7 +37,6 @@ def add_department():
     Add new department
     '''
     check_admin()
-    add_department = True
 
     form = DepartmenForm()
     if request.method == 'POST' and form.validate_on_submit():
@@ -57,7 +56,34 @@ def add_department():
     return render_template(
         'admin/departments/add.html',
         action='Add',
-        add_department=add_department,
         form=form,
         title='Add Department'
+        )
+
+@admin.route('/department/edit/<int:id>', methods=['POST', 'GET'])
+@login_required
+def edit_department(id):
+    '''
+    Edit existing department
+    '''
+    check_admin()
+
+    department = Department.query.get_or_404(id)
+    form = DepartmenForm(obj=department)
+
+    if request.method == 'POST' and form.validate_on_submit():
+        department.name = form.name.data
+        department.description = form.description.data
+
+        db.session.commit()
+
+        flash('You have successfuly update the Department')
+
+        return redirect(url_for('admin.list_departments'))
+    
+    return render_template(
+        'admin/departments/edit.html',
+        form=form,
+        title='Edit Department',
+        department=department,
         )

@@ -32,7 +32,7 @@
                                     <td>0</td>
                                 {% endif %}
                                 <td>
-                                    <td>Edit</td>
+                                    <td><a href="{{ url_for('admin.edit_department', id=department.id) }}">Edit</a></td>
                                     <td>Delete</td>
                                 </td>
                             </tr>
