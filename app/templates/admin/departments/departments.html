@@ -1,0 +1,48 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+    <div class="row">
+        <div class="center-align">
+            <div>
+                <h1>List of Departments</h1>
+            </div>
+            {% if departments %}
+                <table class="responsive-table striped bordered">
+                    <thead>
+                        <tr>
+                            <td>No</td>
+                            <td>Department Name</td>
+                            <td>Department Description</td>
+                            <td>Employee Count</td>
+                            <td>
+                                <td class="center-align">Action</td>
+                            </td>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for department in departments %}
+                            <tr>
+                                <td>{{ loop.index }}</td>
+                                <td>{{ department.name }}</td>
+                                <td>{{ department.description }}</td>
+                                {% if departments.employees %}
+                                    <td>{{ departments.employees.count() }}</td>
+                                {% else %}
+                                    <td>0</td>
+                                {% endif %}
+                                <td>
+                                    <td>Edit</td>
+                                    <td>Delete</td>
+                                </td>
+                            </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            {% else %}
+                <h3>No Table added</h3>
+            {% endif %}
+        </div>
+    </div>
+
+{% endblock %}
